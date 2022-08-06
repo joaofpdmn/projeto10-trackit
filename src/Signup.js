@@ -1,5 +1,6 @@
-import React from React;
+import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
 
@@ -12,7 +13,9 @@ export default function Signup() {
                 <input type="text" name="nome" placeholder="nome" />
                 <input type="text" name="foto" placeholder="foto" />
                 <div className="button">Cadastrar</div>
-                <p>Já tem uma conta? Faça login!</p>
+                <Link to={`/`} >
+                    <p>Já tem uma conta? Faça login!</p>
+                </Link>
             </LoginContent>
         </Container>
     );
@@ -44,4 +47,8 @@ input::placeholder {
     color: #dbdbdb;
     font-size: 19px;
     font-weight: 400;
+}
+p{
+    text-decoration: underline;
+    color: #52B6FF;
 }`;

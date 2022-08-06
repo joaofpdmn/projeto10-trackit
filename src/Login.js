@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     return (
@@ -10,7 +11,10 @@ export default function Login() {
                     <input type="text" name="email" id="" placeholder="email" />
                     <input type="text" name="senha" id="" placeholder="senha" />
                     <div className="button">Entrar</div>
-                    <p>Não tem uma conta? Cadastre-se!</p>
+                    <Link to={`./cadastro`} >
+                        <p>Não tem uma conta? Cadastre-se!</p>
+                    </Link>
+
                 </LoginContent>
 
             </Container>
@@ -44,4 +48,8 @@ input::placeholder {
     color: #dbdbdb;
     font-size: 19px;
     font-weight: 400;
+}
+p{
+    text-decoration: underline;
+    color: #52B6FF;
 }`;
