@@ -1,21 +1,38 @@
 import React from "react";
+import styled from "styled-components";
+import Days from "./Days";
 
 export default function HabitBoxList() {
     return (
-        <div class="habit-box-list">
-            <div class="habit-box-list-title">
-                <p>Ler 1 capítulo de livro</p>
-                <ion-icon name="trash-outline"></ion-icon>
-            </div>
-            <div class="days">
-                <p>D</p>
-                <p>S</p>
-                <p>T</p>
-                <p>Q</p>
-                <p>Q</p>
-                <p>S</p>
-                <p>S</p>
-            </div>
-        </div>
+        <><><div className="padding"></div></>
+            <Container>
+                <Title>
+                    <p>Ler 1 capítulo de livro</p>
+                    <ion-icon name="trash-outline"></ion-icon>
+                </Title>
+                <Days />
+            </Container>
+        </>
     )
 }
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 7px 10px 7px 13px;
+    background-color: white;
+    border-radius: 5px;
+
+    p{
+        color: #666666;
+        font-size: 20px;
+    }
+
+    
+`;
+
+const Title = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
