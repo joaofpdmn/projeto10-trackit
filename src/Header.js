@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import UserContext from "./contexts/UserContext";
+import { useContext } from "react";
 
 export default function Header() {
+    const { login } = useContext(UserContext);
     return (
         <><Container>
             <p>TrackIt</p>
-            <img src="./assets/img/Rectangle 14.png" alt="pic" />
+            <img src={login.image} alt="pic" />
         </Container>
-        <div className="padding-header"></div></>
+            <div className="padding-header"></div></>
     )
 }
 

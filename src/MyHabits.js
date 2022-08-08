@@ -1,11 +1,17 @@
-import React from "react";
 import styled from "styled-components";
+import HabitBoxCreate from "./HabitBoxCreate"
+import { useState, React } from "react";
 
 export default function MyHabits() {
+    const [isShown, setIsShown] = useState(false);
+    const handleClick = event => {
+        setIsShown(current => !current);
+      };
     return (
         <Container>
             <h2>Meus hábitos</h2>
-            <p>+</p>
+            <button onClick={handleClick}>+</button>
+            {isShown && <HabitBoxCreate />}
         </Container>
     )
 }
@@ -24,7 +30,7 @@ h2 {
     font-weight: 500;
 }
 
-p {
+button {
     background-color: #126BA5;
     width: 40px;
     height: 35px;

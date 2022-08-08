@@ -1,9 +1,13 @@
-import React from "react";
+import { useContext, useEffect, React } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import loginRequest from "./Services/LoginRequest";
+import { getUserData, setUserData } from './Services/UserInfo';
+import UserContext from "./contexts/UserContext";
+
+
 
 export default function Login() {
 
@@ -11,6 +15,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(false);
+    const { setLogin } = useContext(UserContext);
 
 
     function handleSubmit(e) {
@@ -26,11 +31,16 @@ export default function Login() {
         });
         loginPromise.then(response => {
             localStorage.setItem('myToken', response.data.token);
+            setUserData(response.data); 
+            const user = getUserData();
+            setLogin(user);
             navigate("/hoje");
         });
 
         setDisabled(true);
     }
+
+   
 
     return (
         <>
@@ -38,7 +48,7 @@ export default function Login() {
                 <img src="./assets/img/Group 8.png" alt="" className="logo" />
                 <LoginContent>
                     <form onSubmit={handleSubmit}>
-                        <input type="email" name="email" placeholder="email"  onChange={e => setEmail(e.target.value)} />
+                        <input type="email" name="email" placeholder="email" onChange={e => setEmail(e.target.value)} />
                         <input type="password" name="senha" placeholder="senha" onChange={e => setPassword(e.target.value)} />
                         <button className="button" type="submit" disabled={disabled}>
                             {disabled ? <ThreeDots color="white" height={30} width={50} /> : "Entrar"}

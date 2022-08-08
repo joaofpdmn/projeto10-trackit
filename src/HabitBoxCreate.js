@@ -1,17 +1,50 @@
-import React from "react";
 import styled from "styled-components";
 import Days from "./Days";
+import { useState, React, useContext } from "react";
+import UserContext from "./contexts/UserContext";
+import CreateHabitsRequest from "./Services/CreateHabitsRequest";
+import { useNavigate } from "react-router-dom";
+import { ThreeDots } from "react-loader-spinner";
+
 
 export default function HabitBoxCreate() {
+    const [disabled, setDisabled] = useState(false);
+    const { login } = useContext(UserContext);
+    const [name, setName] = useState('');
+    const [days, setDays] = useState([]);
+    const navigate = useNavigate();
+    const body = {
+        name: name,
+        days: days,
+    };
+    console.log(body);
+    console.log(login);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const HabitBoxCreatePromise = CreateHabitsRequest(body);
+        HabitBoxCreatePromise.catch((e) => {
+            alert("Não conseguimos criar seu hábito!");
+        });
+        HabitBoxCreatePromise.then(response => {
+            console.log(response.data);
+            window.location.reload();
+        })
+        setDisabled(true);
+    }
+
+
     return (
         <><div className="padding"></div>
             <Container>
-                <input type="text" name="habit-name" placeholder="nome do hábito" />
-                <Days />
-                <HabitButtons>
-                    <div>Cancelar</div>
-                    <div>Salvar</div>
-                </HabitButtons>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="habit-name" placeholder="nome do hábito" onChange={e => setName(e.target.value)} />
+                    <Days days={days} setDays={setDays} />
+                    <HabitButtons>
+                        <button type="submit" onClick={() => navigate('/hoje')}>Cancelar</button>
+                        <button type="submit" disabled={disabled} >{disabled ? <ThreeDots color="white" height={30} width={50} /> : "Salvar"}</button>
+                    </HabitButtons>
+                </form>
             </Container>
         </>
     )
@@ -45,7 +78,7 @@ const HabitButtons = styled.div`{
     justify-content: flex-end;
 }
 
-div {
+button {
     background-color: #52B6FF;
     margin-inline-end: 15px;
     color: white;
