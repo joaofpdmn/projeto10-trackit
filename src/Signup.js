@@ -1,18 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SignUpRequest from "./Services/SignupRequest";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Signup() {
+
+    const navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [image, setImage] = useState('');
+    const [password, setPassword] = useState('');
+    const [disabled, setDisabled] = useState(false);
+
+    function handleSubmit(e) {
+        const body = {
+            email: email,
+            name: name,
+            image: image,
+            password: password,
+        };
+        e.preventDefault();
+        const SignUpPromise = SignUpRequest(body);
+        SignUpPromise.catch(e => {
+            alert("Erro, não conseguimos cadastrar sua conta. Insira novamente os dados!");
+            setDisabled(false);
+        });
+        SignUpPromise.then(response => {
+            navigate("/");
+        });
+
+        setDisabled(true);
+        console.log(body);
+    }
+
 
     return (
         <Container>
             <img src="./assets/img/Group 8.png" alt="" className="logo" />
             <LoginContent>
-                <input type="text" name="email" placeholder="email" />
-                <input type="text" name="senha" placeholder="senha" />
-                <input type="text" name="nome" placeholder="nome" />
-                <input type="text" name="foto" placeholder="foto" />
-                <div className="button">Cadastrar</div>
+                <form onSubmit={handleSubmit}>
+                    <input type="email" name="email" placeholder="email" onChange={e => setEmail(e.target.value)} />
+                    <input type="text" name="name" placeholder="name" onChange={e => setName(e.target.value)} />
+                    <input type="url" name="foto" placeholder="foto" onChange={e => setImage(e.target.value)} />
+                    <input type="password" name="senha" placeholder="senha" onChange={e => setPassword(e.target.value)} />
+                    <button className="button" type="submit" disabled={disabled}>
+                        {disabled ? <ThreeDots color="white" height={30} width={50} /> : "Cadastrar"}
+                    </button>
+                </form>
                 <Link to={`/`} >
                     <p>Já tem uma conta? Faça login!</p>
                 </Link>

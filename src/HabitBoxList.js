@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContext } from "react";
+import UserContext from "./contexts/UserContext";
 import styled from "styled-components";
 import Days from "./Days";
+import DayHabitsRequest from "./Services/DayHabitsRequest";
 
 export default function HabitBoxList() {
+    
+    const habits = [];
+
+    const habitsPromise = DayHabitsRequest(habits);
+    console.log(habits);
+
     return (
         <><><div className="padding"></div></>
             <Container>
