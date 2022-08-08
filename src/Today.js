@@ -23,7 +23,6 @@ export default function Today() {
             })
             .then((res) => {
                 setTodayHabits(res.data);
-                console.log(res.data);
             })
 
     }, []);
@@ -37,7 +36,7 @@ export default function Today() {
     function isDone(index) {
         const idCheck = todayHabits[index].id;
         if (todayHabits[index].done === false) {
-            
+            setCheck(false);
             console.log(idCheck);
             DoneHabitRequest(idCheck).catch((res) => {
                 console.log(res);
@@ -85,7 +84,9 @@ export default function Today() {
                     </Checkbox>
                 )}
             </Container>
-
+            <div className="padding"></div>
+            <div className="padding"></div>
+            <div className="padding"></div>
         </>
     )
 }

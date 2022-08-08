@@ -23,7 +23,6 @@ const Container = styled.div`
     box-sizing: border-box;
     padding: 18px;
 
-
 h2 {
     font-size: 22px;
     color: #126BA5;

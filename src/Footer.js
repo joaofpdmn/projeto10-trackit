@@ -7,7 +7,7 @@ import HabitsTodayRequest from "./Services/HabitsTodayRequest";
 
 export default function Footer() {
     const [todayHabits, setTodayHabits] = useState([]);
-    let percentage = 0;
+    let count=0;
     useEffect(() => {
         HabitsTodayRequest()
             .catch((res) => {
@@ -15,16 +15,16 @@ export default function Footer() {
             })
             .then((res) => {
                 setTodayHabits(res.data);
-                console.log(res.data);
             })
 
     }, []);
     todayHabits.map((value, index) => {
         if (value.done === true) {
-            percentage++;
+            count++;
         }
     })
-    percentage = percentage / todayHabits.length;
+    count = (count / todayHabits.length*100);
+    const percentage = count;
     console.log(percentage);
 
     return (
@@ -33,26 +33,10 @@ export default function Footer() {
             <Link to='/hoje' >
                 <Hoje>
                     <CircularProgressbar value={percentage} text="Hoje" styles={buildStyles({
-    // Rotation of path and trail, in number of turns (0-1)
-    rotation: 0.25,
-
-    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-    strokeLinecap: 'butt',
-
-    // Text size
-    textSize: '16px',
-
-    // How long animation takes to go from one percentage to another, in seconds
-    pathTransitionDuration: 0.5,
-
-    // Can specify path transition in more detail, or remove it entirely
-    // pathTransition: 'none',
-
-    // Colors
-    pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
     textColor: '#ffffff',
-    trailColor: '#ffffff',
+    trailColor: 'transparent',
     backgroundColor: '#52B6FF',
+    pathColor: '#ffffff'
   })} />
                 </Hoje>
             </Link>

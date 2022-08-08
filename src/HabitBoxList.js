@@ -43,6 +43,11 @@ export default function HabitBoxList() {
                 }
                 
             </Container>
+            <div className="padding"></div>
+            <div className="padding"></div>
+            <div className="padding"></div>
+            <div className="padding"></div>
+            <div className="padding"></div>
         </>
     )
 }

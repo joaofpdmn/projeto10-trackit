@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Days from "./Days";
-import { useState, React, useContext } from "react";
+import { useState, React, useContext, useEffect } from "react";
 import UserContext from "./contexts/UserContext";
 import CreateHabitsRequest from "./Services/CreateHabitsRequest";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ export default function HabitBoxCreate() {
     };
     console.log(body);
     console.log(login);
-
     function handleSubmit(e) {
         e.preventDefault();
         const HabitBoxCreatePromise = CreateHabitsRequest(body);
@@ -32,6 +31,7 @@ export default function HabitBoxCreate() {
         })
         setDisabled(true);
     }
+  
 
 
     return (
@@ -82,8 +82,9 @@ button {
     background-color: #52B6FF;
     margin-inline-end: 15px;
     color: white;
-    font-size: 16px;
+    font-size: 10px;
     border-radius: 5px;
     box-sizing: border-box;
     padding: 7px 17px 7px 17px;
+    width: 74px;
 }`

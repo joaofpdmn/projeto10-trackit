@@ -5,10 +5,11 @@ import { useContext } from "react";
 
 export default function Header() {
     const { login } = useContext(UserContext);
+    console.log(login);
     return (
         <><Container>
             <p>TrackIt</p>
-            <img src={login.image} alt="pic" />
+            <img src={login.image}/>
         </Container>
             <div className="padding-header"></div></>
     )
@@ -31,4 +32,12 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     z-index: 1;
-}`;
+}
+img{
+    display:flex;
+    width:50px;
+    height: 50px;
+    border-radius:50%;
+}
+
+`;
