@@ -32,8 +32,6 @@ export default function HabitBoxCreate() {
         setDisabled(true);
     }
   
-
-
     return (
         <><div className="padding"></div>
             <Container>

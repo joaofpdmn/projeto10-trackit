@@ -5,11 +5,14 @@ import { useContext } from "react";
 
 export default function Header() {
     const { login } = useContext(UserContext);
+    const img = localStorage.getItem('myImg');
+
     console.log(login);
+    console.log(img)
     return (
         <><Container>
             <p>TrackIt</p>
-            <img src={login.image}/>
+            <img src={img}/>
         </Container>
             <div className="padding-header"></div></>
     )

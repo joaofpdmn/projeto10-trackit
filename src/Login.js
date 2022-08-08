@@ -31,6 +31,7 @@ export default function Login() {
         });
         loginPromise.then(response => {
             localStorage.setItem('myToken', response.data.token);
+            localStorage.setItem('myImg', response.data.image);
             setUserData(response.data); 
             const user = getUserData();
             setLogin(user);
