@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import UserContext from "./contexts/UserContext";
 import styled from "styled-components";
 import Days from "./Days";
 import DayHabitsRequest from "./Services/DayHabitsRequest";
+import DeleteHabitsRequest from "./Services/DeleteHabitsRequest";
 
 export default function HabitBoxList() {
-
+    const [days, setDays] = useState([]);
     const [habits, setHabits] = useState([]);
     useEffect(() => {
-        DayHabitsRequest()
-            .catch((res) => {
+        DayHabitsRequest().catch((res) => {
                 console.log(res);
             })
             .then((res) => {
@@ -18,7 +16,20 @@ export default function HabitBoxList() {
                 console.log(res.data);
             })
 
-    }, [])
+    }, []);
+
+    function deleteHabit(index){
+        if(window.confirm('Você realmente deseja apagar esse hábito? ')){
+            const idDelete = habits[index].id;
+            DeleteHabitsRequest(idDelete).catch((res) => {
+                console.log(res);
+            }).then((res) => {
+                setHabits(res.data);
+                console.log(res.data);
+                window.location.reload();
+            })
+        }
+    }
 
 
     return (
@@ -26,10 +37,9 @@ export default function HabitBoxList() {
             <Container>
                 {(habits.length === 0) ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> :
                     habits.map((habitos, index) => <><Title>
-                       <> <p>{habitos.name}</p> <ion-icon name="trash-outline"></ion-icon> </>
+                       <> <p key={habitos}>{habitos.name}</p> <ion-icon name="trash-outline" onClick={() => deleteHabit(index)}></ion-icon> </>
                     </Title>
-                        <Days /></>)
-
+                        <Days days={days} setDays={setDays}/></>)
                 }
                 
             </Container>

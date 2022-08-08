@@ -5,6 +5,6 @@ export default function HistoricHabitsRequest(id){
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    const HistoricHabitsRequesition = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, config);
+    const HistoricHabitsRequesition = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily`, config);
     return HistoricHabitsRequesition;
 }
